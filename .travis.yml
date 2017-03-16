@@ -1,0 +1,13 @@
+language: generic
+notifications:
+  email: false
+script:
+  - git remote add upstream https://github.com/openSUSE/docker-containers-build
+  - git remote add mine https://tkelman@github.com/$TRAVIS_REPO_SLUG
+  - git fetch --all
+  - REFS=$(git ls-remote -h upstream | awk '{print $2}')
+  - echo $REFS
+  - for i in $REFS; do
+      echo "upstream: $(git ls-remote upstream $i)";
+      echo "mine: $(git ls-remote mine $i)";
+    done
