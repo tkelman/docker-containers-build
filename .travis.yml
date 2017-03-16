@@ -13,9 +13,13 @@ script:
       echo "upstream $i $UPSTREAM_SHA1";
       echo "mine     $i $MINE_SHA1";
       if [ "$UPSTREAM_SHA1" != "$MINE_SHA1" ]; then
-        date +%F;
+        BRANCH=$(basename $i);
+        git checkout -t upstream/$BRANCH;
+        git tag $BRANCH-$(date +%F);
+        git push mine +$BRANCH;
       fi;
     done
+  - git push mine --tags
 deploy:
   provider: releases
   api_key: "$TOKEN"
