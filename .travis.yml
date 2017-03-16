@@ -14,12 +14,17 @@ script:
       echo "mine     $i $MINE_SHA1";
       if [ "$UPSTREAM_SHA1" != "$MINE_SHA1" ]; then
         BRANCH=$(basename $i);
+        cp .travis.yml .travis.yml.tmp;
         git checkout -t upstream/$BRANCH;
-        git tag $BRANCH-$(date +%F);
         git push mine +$BRANCH;
+        mv .travis.yml.tmp .travis.yml;
+        git add .travis.yml;
+        TAGNAME=$BRANCH-$(date +%F);
+        git commit -m "$TAGNAME - add .travis.yml";
+        git tag $TAGNAME;
+        git push mine $TAGNAME;
       fi;
     done
-  - git push mine --tags
   - echo $TRAVIS_TAG
   - if [ -n "$TRAVIS_TAG" ]; then
       git checkout $TRAVIS_TAG;
