@@ -20,6 +20,10 @@ script:
       fi;
     done
   - git push mine --tags
+  - echo $TRAVIS_TAG
+  - if [ -n "$TRAVIS_TAG" ]; then
+      git checkout $TRAVIS_TAG;
+    fi
 deploy:
   provider: releases
   api_key: "$TOKEN"
