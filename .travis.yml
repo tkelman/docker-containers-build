@@ -8,6 +8,6 @@ script:
   - REFS=$(git ls-remote -h upstream | awk '{print $2}')
   - echo $REFS
   - for i in $REFS; do
-      echo "upstream: $(git ls-remote upstream $i)";
-      echo "mine: $(git ls-remote mine $i)";
+      echo "upstream $(git ls-remote upstream $i)";
+      echo "mine $(git ls-remote mine $i)";
     done
