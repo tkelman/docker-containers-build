@@ -14,7 +14,10 @@ script:
       echo "mine     $i $MINE_SHA1";
       if [ "$UPSTREAM_SHA1" != "$MINE_SHA1" ]; then
         BRANCH=$(basename $i);
-        cp .travis.yml .travis.yml.tmp;
+        ruby -e "require 'yaml';
+          y = YAML.load_file('.travis.yml');
+          y.delete('script');
+          puts y.to_yaml" | sed 's/true:/on:/' > .travis.yml.tmp;
         git checkout -t upstream/$BRANCH;
         git push mine +$BRANCH 2>/dev/null;
         mv .travis.yml.tmp .travis.yml;
@@ -27,13 +30,10 @@ script:
         git push mine $TAGNAME 2>/dev/null;
       fi;
     done
-  - if [ -n "$TRAVIS_TAG" ]; then
-      git checkout $TRAVIS_TAG;
-    fi
 deploy:
   provider: releases
-  api_key: "$TOKEN"
-  file: "docker/*.tar.*"
+  api_key: $TOKEN
+  file: docker/*.tar.*
   file_glob: true
   skip_cleanup: true
   on:
