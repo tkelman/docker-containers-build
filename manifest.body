@@ -1,0 +1,9 @@
+# This is the multiarch section specific for openSUSE-Tumbleweed
+Tags: tumbleweed
+Architectures: amd64, arm64v8, ppc64le
+GitFetch: refs/heads/openSUSE-Tumbleweed
+GitCommit: 8c0ca7629b6ab739a2f6ebc0f7d5e38ccbff7ba6
+amd64-Directory: x86_64/
+arm64v8-Directory: aarch64/
+ppc64le-Directory: ppc64le/
+
