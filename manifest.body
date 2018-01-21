@@ -1,0 +1,7 @@
+# This is the multiarch section specific for openSUSE-Leap-42.2
+Tags: 42.2
+Architectures: amd64
+GitFetch: refs/heads/openSUSE-Leap-42.2
+GitCommit: 0b88e6d5b10c23a57cf8b659d2efbdba69bfb928
+amd64-Directory: x86_64/
+
